@@ -9,43 +9,51 @@
       <span>Lv.{{ level }}</span>
     </div>
   </div>
-  <router-link class="likeMusic" :to="{ path: '/listMusic', query: { id: likeMusic.id } }">
+  <router-link
+    class="likeMusic"
+    :to="{ path: '/listMusic', query: { id: likeMusic.id } }"
+  >
     <img :src="likeMusic.coverImgUrl" alt />
     <div class="name">{{ likeMusic.name }}</div>
-    <div class="heart">?</div>
+    <div class="heart">></div>
   </router-link>
   <div class="bgc"></div>
 </template>
 
 <script>
-import $store from '../store/index.js';
-import { request } from '../api/request.js';
-import { reactive, toRefs } from '@vue/reactivity';
-import Top from '../components/common/top.vue';
+import $store from "../store/index.js";
+import { request } from "../api/request.js";
+import { reactive, toRefs } from "@vue/reactivity";
+import Top from "../components/common/top.vue";
 export default {
   setup() {
+    // console.log();
     let userMsg = reactive({
-      level: ""
+      level: "",
     });
     let tracks = reactive({
-      likeMusic: []
-    })
-    // 
+      likeMusic: [],
+    });
+    //
     request("/user/detail?uid=" + $store.state.user.msg.userId).then((res) => {
-      localStorage.setItem("level", res.data.level)
+      localStorage.setItem("level", res.data.level);
       userMsg.level = localStorage.getItem("level");
     });
-    request("/user/playlist?uid=" + $store.state.user.msg.userId).then((res) => {
-      localStorage.setItem("likeMusic", JSON.stringify(res.data.playlist[0]));
-      tracks.likeMusic = JSON.parse(localStorage.getItem("likeMusic"));
-    })
+    request("/user/playlist?uid=" + $store.state.user.msg.userId).then(
+      (res) => {
+        localStorage.setItem("likeMusic", JSON.stringify(res.data.playlist[0]));
+        tracks.likeMusic = JSON.parse(localStorage.getItem("likeMusic"));
+      }
+    );
+    let token = JSON.parse(localStorage.getItem("vuex")).user.token;
     return {
       ...toRefs(userMsg),
-      ...toRefs(tracks)
+      ...toRefs(tracks),
+      token,
     };
   },
-  components: { Top }
-}
+  components: { Top },
+};
 </script>
 
 <style scoped>

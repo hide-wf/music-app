@@ -9,7 +9,9 @@
         </span>
       </div>
       <div>
-        <van-button type="primary" class="vant-btn">+ 收藏 ({{ changValue() }})</van-button>
+        <van-button type="primary" class="vant-btn"
+          >+ 收藏 ({{ changValue() }})</van-button
+        >
       </div>
     </div>
     <div class="tracks-main">
@@ -31,13 +33,14 @@
 </template>
 
 <script>
-import { musicList } from "../../api/musicList";
+// import { musicList } from "../../api/musicList";
+import { request } from "../../api/request";
 export default {
   data() {
     return {
       playlist: {},
-      tracks: []
-    }
+      tracks: [],
+    };
   },
   methods: {
     allPlay() {
@@ -53,24 +56,23 @@ export default {
       let n = this.playlist.subscribedCount;
       if (n > 10000) {
         n = Math.floor(n / 10000) + "万";
-        return n
+        return n;
       } else {
-        return n
+        return n;
       }
-    }
+    },
   },
-  created() {
-    musicList(this.$route.query.id).then((res) => {
+  activated() {
+    request({
+      url: "/playlist/detail?id=" + this.$route.query.id,
+      method: "get",
+    }).then((res) => {
       this.playlist = res.data.playlist;
       this.tracks = res.data.playlist.tracks;
-
-    })
+    });
   },
-  mounted() {
-
-  },
-
-}
+  mounted() {},
+};
 </script>
 
 <style scoped>

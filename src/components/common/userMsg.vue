@@ -39,23 +39,23 @@
 </template>
 
 <script>
-import { musicList } from '../../api/musicList.js';
+import { musicList } from "../../api/musicList.js";
 export default {
   data() {
     return {
       playlist: {},
       avatar: "",
-      nickname: ""
-    }
+      nickname: "",
+    };
   },
-  created() {
+  activated() {
     musicList(this.$route.query.id).then((res) => {
       this.playlist = res.data.playlist;
       this.avatar = this.playlist.creator.avatarUrl;
       this.nickname = this.playlist.creator.nickname;
-    })
+    });
   },
-}
+};
 </script>
 
 <style scoped>
@@ -124,6 +124,6 @@ export default {
 }
 .avatar .icon-dayuhao {
   font-size: 2vw;
-  color:  #666;
+  color: #666;
 }
 </style>

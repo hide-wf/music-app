@@ -50,9 +50,8 @@ export default {
         if (res.data.code == 200) {
           $store.commit("login", res.data);
           router.replace("/user");
-
         } else {
-
+          alert("登录失败");
         }
       })
     };
@@ -83,7 +82,7 @@ h2 {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(100, 100, 100, 0.5);
+  /* background-color: rgba(100, 100, 100, 0.5); */
 }
 .loginType {
   position: relative;

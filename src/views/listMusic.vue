@@ -7,25 +7,23 @@
 </template>
 
 <script>
-import top from '../components/common/top.vue';
-import userMsg from '../components/common/userMsg.vue';
-import tracks from '../components/common/tracks.vue';
+import top from "../components/common/top.vue";
+import userMsg from "../components/common/userMsg.vue";
+import tracks from "../components/common/tracks.vue";
 export default {
   data() {
     return {
-      id: ""
-    }
+      id: "",
+    };
   },
-  created() {
-    this.id = this.$route.query.id;  
-  },
-  components :{
+  created() {},
+  deactivated() {},
+  components: {
     tracks,
     top,
-    userMsg
-  }
-}
+    userMsg,
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>
